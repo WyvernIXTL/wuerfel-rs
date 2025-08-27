@@ -60,7 +60,7 @@ fn main() -> Result<(), Report<MainError>> {
 
     let word_count = cli
         .count
-        .unwrap_or_else(|| count_from_entropy(digit_count, cli.entropy.unwrap()));
+        .unwrap_or_else(|| count_from_entropy(digit_count, cli.entropy.unwrap_or(90)));
 
     let generated_password = diceware_password(&password_list, digit_count, word_count)
         .change_context(MainError::Dice)?;
