@@ -4,6 +4,11 @@
 
 **Diceware password generator cli based on eff password lists.**
 
+[![Crates.io Version](https://img.shields.io/crates/v/wuerfel)](https://crates.io/crates/wuerfel)
+[![lib.rs link](https://badgen.net/badge/lib.rs/lib.rs/purple?label)](https://lib.rs/crates/wuerfel)
+[![GitHub License](https://badgen.net/github/license/WyvernIXTL/wuerfel-rs)](https://github.com/WyvernIXTL/wuerfel-rs/blob/master/LICENSE)
+[![deps.rs](https://deps.rs/crate/wuerfel/latest/status.svg)](https://deps.rs/crate/wuerfel/)
+
 </div>
 
 ## Usage
