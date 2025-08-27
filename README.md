@@ -81,14 +81,14 @@ wuerfel -l short
 wuerfel -l long
 wuerfel -l memorable
 ```
-I explicitly recommend at least 110 bits of entropy for encryption purposes
+I recommend at least 110 bits of entropy for encryption purposes
 and at least 80 bits of entropy for authentication purposes.
 
 More is better!
 
 ## Security
 
-* The password lists where unaltered taken from the eff webpage and are parsed on build time.
-* The random values are generated stem from the ["operating-system’s random data source"](https://docs.rs/rand/latest/rand/rngs/struct.OsRng.html).
-* The password and the random numbers are zeroized (but with not guarantee). 
+* The password lists where unaltered taken from the [eff webpage](https://www.eff.org/dice) and are parsed at build time.
+* The ["operating-system’s random data source"](https://docs.rs/rand/latest/rand/rngs/struct.OsRng.html) is used for all random data.
+* Passwords and the random numbers they derive from are zeroized (but with no guarantees). 
 
