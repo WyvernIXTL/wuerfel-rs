@@ -32,8 +32,11 @@ pub enum List {
 #[command(version, about)]
 pub struct Arguments {
     /// Length of generated password in words
-    #[arg(short, long, value_parser = clap::value_parser!(u8).range(1..))]
-    pub count: Option<u8>,
+    #[arg(short, long, value_parser = clap::value_parser!(u32).range(1..65535), group = "strength")]
+    pub count: Option<u32>,
+    /// Target entropy of password in bits
+    #[arg(short, long, value_parser = clap::value_parser!(u32).range(1..), group = "strength")]
+    pub entropy: Option<u32>,
     /// List to use
     #[arg(short, long, value_enum, default_value_t = List::Short)]
     pub list: List,

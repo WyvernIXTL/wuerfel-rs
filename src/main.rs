@@ -6,11 +6,13 @@ use thiserror::Error;
 use crate::{
     cli::{Arguments, List},
     decode::decode_password_lists,
+    entropy::{calculate_entropy, count_from_entropy},
     generation::diceware_password,
 };
 
 mod cli;
 mod decode;
+mod entropy;
 mod generation;
 mod password_lists;
 mod random;
@@ -26,6 +28,8 @@ enum MainError {
     DecodeLists,
     #[error("Failed to dice")]
     Dice,
+    #[error("Failed to calc entropy")]
+    EntropyCalculation,
 }
 
 fn main() -> Result<(), Report<MainError>> {
@@ -54,10 +58,18 @@ fn main() -> Result<(), Report<MainError>> {
         List::Remember => 4,
     };
 
-    let generated_password =
-        diceware_password(&password_list, digit_count, cli.count.unwrap_or(9).into())
-            .change_context(MainError::Dice)?;
+    let word_count = cli
+        .count
+        .unwrap_or_else(|| count_from_entropy(digit_count, cli.entropy.unwrap()));
 
+    let generated_password = diceware_password(&password_list, digit_count, word_count)
+        .change_context(MainError::Dice)?;
+
+    let entropy =
+        calculate_entropy(digit_count, word_count).change_context(MainError::EntropyCalculation)?;
+
+    eprintln!("word count: {}", word_count);
+    eprintln!("entropy: {:.1} bits", entropy);
     println!("{}", generated_password);
 
     Ok(())
