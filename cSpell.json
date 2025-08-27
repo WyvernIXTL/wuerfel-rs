@@ -1,5 +1,6 @@
 {
     "words": [
+        "asciicast",
         "bincode",
         "Bonneau",
         "ceprintln",
@@ -21,6 +22,7 @@
         "wordlists",
         "zeroize",
         "Zeroize",
+        "zeroized",
         "Zeroizing"
     ]
 }

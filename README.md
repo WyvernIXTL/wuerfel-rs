@@ -11,6 +11,8 @@
 
 </div>
 
+[![asciicast](https://asciinema.org/a/OM6wZiuAYnRkPMLN0BltXBiig.svg)](https://asciinema.org/a/OM6wZiuAYnRkPMLN0BltXBiig)
+
 ## Usage
 
 By default a password with at least 90 bits of entropy is generated:
@@ -67,4 +69,5 @@ More is better!
 
 * The password lists where unaltered taken from the eff webpage and are parsed on build time.
 * The random values are generated stem from the ["operating-system’s random data source"](https://docs.rs/rand/latest/rand/rngs/struct.OsRng.html).
+* The password and the random numbers are zeroized (but with not guarantee). 
 
