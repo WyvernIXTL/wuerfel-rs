@@ -15,6 +15,10 @@
 
 ## Installation
 
+### Prebuilt
+
+See the [release page](https://github.com/WyvernIXTL/wuerfel-rs/releases).
+
 ### Build from Source
 
 Via [Cargo](https://www.rust-lang.org/tools/install):
