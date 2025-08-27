@@ -5,6 +5,7 @@
         "Diceware",
         "miniz",
         "passwordlist",
+        "rngs",
         "thiserror",
         "Wordlist",
         "wordlists"
