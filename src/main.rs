@@ -1,4 +1,5 @@
 use clap::Parser;
+use colored::Colorize;
 use error_stack::{Report, ResultExt};
 use license_fetcher::read_package_list_from_out_dir;
 use thiserror::Error;
@@ -69,7 +70,15 @@ fn main() -> Result<(), Report<MainError>> {
         calculate_entropy(digit_count, word_count).change_context(MainError::EntropyCalculation)?;
 
     eprintln!("word count: {}", word_count);
-    eprintln!("entropy: {:.1} bits", entropy);
+
+    let entropy_bits_string = format!("{:.1} bits", entropy);
+    let entropy_bits_string_colored = match entropy {
+        ..70.0 => entropy_bits_string.red(),
+        110.0.. => entropy_bits_string.green(),
+        _ => entropy_bits_string.yellow(),
+    };
+    eprintln!("entropy: {}", entropy_bits_string_colored);
+
     println!("{}", generated_password);
 
     Ok(())
