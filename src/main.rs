@@ -3,6 +3,7 @@ use colored::Colorize;
 use error_stack::{Report, ResultExt};
 use license_fetcher::read_package_list_from_out_dir;
 use thiserror::Error;
+use zeroize::Zeroize;
 
 use crate::{
     cli::{Arguments, List},
@@ -63,7 +64,7 @@ fn main() -> Result<(), Report<MainError>> {
         .count
         .unwrap_or_else(|| count_from_entropy(digit_count, cli.entropy.unwrap_or(90)));
 
-    let generated_password = diceware_password(&password_list, digit_count, word_count)
+    let mut generated_password = diceware_password(&password_list, digit_count, word_count)
         .change_context(MainError::Dice)?;
 
     let entropy =
@@ -80,6 +81,7 @@ fn main() -> Result<(), Report<MainError>> {
     eprintln!("entropy: {}", entropy_bits_string_colored);
 
     println!("{}", generated_password);
+    generated_password.zeroize();
 
     Ok(())
 }

@@ -1,5 +1,6 @@
 use error_stack::{Report, ResultExt};
 use thiserror::Error;
+use zeroize::Zeroize;
 
 use crate::{password_lists::PasswordList, random::dice};
 
@@ -19,16 +20,20 @@ pub fn diceware_password(
     let mut password = String::new();
 
     for _ in 0..length {
-        let random_number = dice(digit_count).change_context(DicewarePasswordGenError::Dice)?;
+        let mut random_number = dice(digit_count).change_context(DicewarePasswordGenError::Dice)?;
         let word = list
             .get(&random_number)
             .ok_or(DicewarePasswordGenError::Get)
             .attach_printable_lazy(|| format!("random number: {}", random_number))?;
+        random_number.zeroize();
         password.push_str(word);
         password.push(' ');
     }
 
-    Ok(password.trim_end().to_owned())
+    let result = password.trim_end().to_owned();
+    password.zeroize();
+
+    Ok(result)
 }
 
 #[cfg(test)]

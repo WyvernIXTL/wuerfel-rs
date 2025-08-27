@@ -11,6 +11,9 @@
         "rngs",
         "thiserror",
         "Wordlist",
-        "wordlists"
+        "wordlists",
+        "zeroize",
+        "Zeroize",
+        "Zeroizing"
     ]
 }
