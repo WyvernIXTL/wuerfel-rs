@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.6](https://github.com/WyvernIXTL/wuerfel-rs/compare/v0.1.5...v0.1.6) - 2025-08-27
+
+### Other
+
+- disable release-plz github release due to incompatibility with cargo dist
+
 ## [0.1.5](https://github.com/WyvernIXTL/wuerfel-rs/compare/v0.1.4...v0.1.5) - 2025-08-27
 
 ### Other
