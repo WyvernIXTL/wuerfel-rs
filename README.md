@@ -13,6 +13,16 @@
 
 [![asciicast](https://asciinema.org/a/OM6wZiuAYnRkPMLN0BltXBiig.svg)](https://asciinema.org/a/OM6wZiuAYnRkPMLN0BltXBiig)
 
+## Installation
+
+### Build from Source
+
+Via [Cargo](https://www.rust-lang.org/tools/install):
+
+```sh
+cargo install wuerfel
+```
+
 ## Usage
 
 By default a password with at least 90 bits of entropy is generated:
