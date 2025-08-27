@@ -5,6 +5,8 @@ version = "0.1.0"
 edition = "2024"
 authors = ["Adam McKellar <dev@mckellar.eu>"]
 license = "MPL-2.0"
+keywords = ["diceware", "password", "password-generator", "passphrase", "word-list"]
+categories = ["command-line-utilities", "security", "authentication"]
 
 [dependencies]
 bincode = "2.0.1"
