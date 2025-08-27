@@ -7,6 +7,7 @@ authors = ["Adam McKellar <dev@mckellar.eu>"]
 
 [dependencies]
 bincode = "2.0.1"
+clap = { version = "4.5.46", features = ["derive"] }
 error-stack = "0.5.0"
 license-fetcher = "0.8.4"
 miniz_oxide = "0.8.9"

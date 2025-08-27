@@ -107,7 +107,7 @@ fn main() {
     package_password_lists();
 
     // Rerun only if one of the following files changed:
-    // println!("cargo::rerun-if-changed=build.rs");
-    // println!("cargo::rerun-if-changed=Cargo.lock");
-    // println!("cargo::rerun-if-changed=Cargo.toml");
+    println!("cargo::rerun-if-changed=build.rs");
+    println!("cargo::rerun-if-changed=Cargo.lock");
+    println!("cargo::rerun-if-changed=Cargo.toml");
 }
