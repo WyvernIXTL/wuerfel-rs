@@ -1,0 +1,8 @@
+[package]
+name = "wuerfel"
+description = "Diceware password generator cli based on eff password lists."
+version = "0.1.0"
+edition = "2024"
+authors = ["Adam McKellar <dev@mckellar.eu>"]
+
+[dependencies]
