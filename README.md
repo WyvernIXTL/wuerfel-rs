@@ -33,6 +33,16 @@ wuerfel -e 256
 # self fried sled humid quilt fancy baker dad spend hers strut spoof shiny shirt stoop slush alarm brick sway plot lying cub acorn musky aroma
 ```
 
+To copy the password to your clipboard, instead of printing it to the terminal, use the `--cb` flag:
+
+```sh
+wuerfel --cb
+# word count: 9
+# entropy: 93.1 bits
+# clipboard is going to be deleted in 10s
+# clipboard cleared!
+```
+
 Three wordlists are included:
 * EFF Short Wordlist (default)
 * EFF Long Wordlist
