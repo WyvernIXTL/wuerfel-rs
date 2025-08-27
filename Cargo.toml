@@ -9,6 +9,12 @@ repository = "https://github.com/WyvernIXTL/wuerfel-rs"
 keywords = ["diceware", "password", "password-generator", "passphrase", "word-list"]
 categories = ["command-line-utilities", "security", "authentication"]
 
+[package.metadata.wix]
+upgrade-guid = "A2B90EFA-6A77-47DE-A055-87E42DAD5ECB"
+path-guid = "E3E9C2F2-954B-461E-A718-9DAEEC2E8523"
+license = false
+eula = false
+
 [dependencies]
 bincode = "2.0.1"
 clap = { version = "4.5.46", features = ["derive"] }
@@ -26,3 +32,8 @@ bincode = "2.0.1"
 license-fetcher = { version = "0.8.4", features = ["build"] }
 miniz_oxide = "0.8.9"
 regex-lite = "0.1.7"
+
+# The profile that 'dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"
