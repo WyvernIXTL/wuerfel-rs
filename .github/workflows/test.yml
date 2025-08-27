@@ -1,0 +1,27 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-tests:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - run: rustup toolchain install stable --profile minimal
+      - uses: Swatinem/rust-cache@v2
+        with:
+          save-if: ${{ github.ref == 'refs/heads/master' }}
+      - name: Run Unit Tests
+        run: cargo test
+      - name: Run Integration Tests
+        run: |
+          cargo run
+          cargo run -- -e 100
+          cargo run -- -c 4
+          cargo run -- -l short
+          cargo run -- -l long
+          cargo run -- -l memorable
