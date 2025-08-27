@@ -31,5 +31,6 @@ pub fn calculate_entropy(
 }
 
 pub fn count_from_entropy(digit_count: u32, entropy: u32) -> u32 {
-    entropy / 6u32.pow(digit_count).ilog2()
+    // entropy / 6u32.pow(digit_count).ilog2()
+    (f64::from(entropy) / 6f64.powf(f64::from(digit_count)).log2()).ceil() as u32
 }
