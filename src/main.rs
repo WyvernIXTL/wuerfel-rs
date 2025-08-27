@@ -7,12 +7,14 @@ use zeroize::Zeroize;
 
 use crate::{
     cli::{Arguments, List},
+    clipboard::copy_to_clipboard_and_delete,
     decode::decode_password_lists,
     entropy::{calculate_entropy, count_from_entropy},
     generation::diceware_password,
 };
 
 mod cli;
+mod clipboard;
 mod decode;
 mod entropy;
 mod generation;
@@ -32,6 +34,8 @@ enum MainError {
     Dice,
     #[error("Failed to calc entropy")]
     EntropyCalculation,
+    #[error("Failed to copy")]
+    Clipboard,
 }
 
 fn main() -> Result<(), Report<MainError>> {
@@ -80,7 +84,12 @@ fn main() -> Result<(), Report<MainError>> {
     };
     eprintln!("entropy: {}", entropy_bits_string_colored);
 
-    println!("{}", generated_password);
+    if cli.copy_clipboard {
+        copy_to_clipboard_and_delete(&generated_password).change_context(MainError::Clipboard)?;
+    } else {
+        println!("{}", generated_password);
+    }
+
     generated_password.zeroize();
 
     Ok(())

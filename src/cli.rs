@@ -40,6 +40,9 @@ pub struct Arguments {
     /// List to use
     #[arg(short, long, value_enum, default_value_t = List::Short)]
     pub list: List,
+    /// Copy password to clipboard instead of printing it
+    #[arg(long = "cb")]
+    pub copy_clipboard: bool,
     #[arg(long)]
     pub license: bool,
 }

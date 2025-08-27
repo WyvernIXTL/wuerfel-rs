@@ -3,6 +3,7 @@
         "bincode",
         "Bonneau",
         "ceprintln",
+        "copypasta",
         "diceware",
         "Diceware",
         "ilog",
