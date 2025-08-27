@@ -6,3 +6,15 @@ edition = "2024"
 authors = ["Adam McKellar <dev@mckellar.eu>"]
 
 [dependencies]
+bincode = "2.0.1"
+error-stack = "0.5.0"
+license-fetcher = "0.8.4"
+miniz_oxide = "0.8.9"
+rand = "0.9.2"
+thiserror = "2.0.16"
+
+[build-dependencies]
+bincode = "2.0.1"
+license-fetcher = { version = "0.8.4", features = ["build"] }
+miniz_oxide = "0.8.9"
+regex-lite = "0.1.7"

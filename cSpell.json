@@ -1,6 +1,11 @@
 {
     "words": [
+        "bincode",
+        "Bonneau",
         "Diceware",
+        "miniz",
+        "passwordlist",
+        "thiserror",
         "Wordlist",
         "wordlists"
     ]
