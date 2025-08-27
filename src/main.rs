@@ -50,13 +50,13 @@ fn main() -> Result<(), Report<MainError>> {
     let password_list = match cli.list {
         List::Short => password_lists.short,
         List::Long => password_lists.long,
-        List::Remember => password_lists.short_remember,
+        List::Memorable => password_lists.short_remember,
     };
 
     let digit_count: u32 = match cli.list {
         List::Short => 4,
         List::Long => 5,
-        List::Remember => 4,
+        List::Memorable => 4,
     };
 
     let word_count = cli

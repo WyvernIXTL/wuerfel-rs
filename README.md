@@ -5,3 +5,51 @@
 **Diceware password generator cli based on eff password lists.**
 
 </div>
+
+## Usage
+
+By default a password with at least 90 bits of entropy is generated:
+
+```sh
+wuerfel
+# word count: 9
+# entropy: 93.1 bits
+# emu rerun film donor drab ride coat ruby grasp
+```
+To generate a stronger password you may use either the `--count` or the `--entropy` options:
+
+```sh
+wuerfel --count 12
+wuerfel -c 12
+# word count: 12
+# entropy: 124.1 bits
+# case walk tummy blink open shore thaw curl nutty tilt tall found
+```
+```sh
+wuerfel --entropy 256
+wuerfel -e 256
+# word count: 25
+# entropy: 258.5 bits
+# self fried sled humid quilt fancy baker dad spend hers strut spoof shiny shirt stoop slush alarm brick sway plot lying cub acorn musky aroma
+```
+
+Three wordlists are included:
+* EFF Short Wordlist (default)
+* EFF Long Wordlist
+* EFF Short Memorable Wordlist 
+
+```sh
+wuerfel -l short
+wuerfel -l long
+wuerfel -l memorable
+```
+I explicitly recommend at least 110 bits of entropy for encryption purposes
+and at least 80 bits of entropy for authentication purposes.
+
+More is better!
+
+## Security
+
+* The password lists where unaltered taken from the eff webpage and are parsed on build time.
+* The random values are generated stem from the ["operating-system’s random data source"](https://docs.rs/rand/latest/rand/rngs/struct.OsRng.html).
+

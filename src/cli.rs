@@ -16,7 +16,7 @@ pub enum List {
     ///
     /// Used words are more common than either the words used in the long
     /// or the short password lists.
-    Remember,
+    Memorable,
 }
 
 /// Diceware password generator cli based on eff password lists
