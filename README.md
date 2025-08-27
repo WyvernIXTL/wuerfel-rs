@@ -15,11 +15,18 @@
 
 ## Installation
 
-### Prebuilt
+### [Scoop](https://scoop.sh/) (Windows)
+
+```sh
+scoop bucket add stupid-bucket https://github.com/WyvernIXTL/stupid-bucket
+scoop install stupid-bucket/wuerfel
+```
+
+### Prebuilts (Windows/Linux/MacOS)
 
 See the [release page](https://github.com/WyvernIXTL/wuerfel-rs/releases).
 
-### Build from Source
+### From Source
 
 Via [Cargo](https://www.rust-lang.org/tools/install):
 
