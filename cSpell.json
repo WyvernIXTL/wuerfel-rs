@@ -13,6 +13,7 @@
         "GITHUB",
         "ilog",
         "IXTL",
+        "mimalloc",
         "miniz",
         "passwordlist",
         "Prebuilts",
@@ -26,6 +27,7 @@
         "zeroize",
         "Zeroize",
         "zeroized",
+        "zeroizing",
         "Zeroizing"
     ]
 }

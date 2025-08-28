@@ -8,7 +8,6 @@ use error_stack::{Report, ResultExt};
 use rand::{TryRngCore, rngs::OsRng};
 use secure_types::SecureString;
 use thiserror::Error;
-use zeroize::Zeroizing;
 
 #[derive(Debug, Clone, Error)]
 pub enum DicewarePasswordGenError {

@@ -25,6 +25,12 @@ mod entropy;
 mod generation;
 mod password_lists;
 
+use mimalloc::MiMalloc;
+use zeroizing_alloc::ZeroAlloc;
+
+#[global_allocator]
+static ALLOC: ZeroAlloc<MiMalloc> = ZeroAlloc(MiMalloc);
+
 fn print_licenses() {
     let package_list = read_package_list_from_out_dir!().unwrap();
     println!("{}", package_list);
