@@ -5,9 +5,10 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 use error_stack::{Report, ResultExt};
-use rand::{SeedableRng, rngs::StdRng, seq::IndexedRandom};
+use rand::{TryRngCore, rngs::OsRng};
 use secure_types::SecureString;
 use thiserror::Error;
+use zeroize::Zeroizing;
 
 #[derive(Debug, Clone, Error)]
 pub enum DicewarePasswordGenError {
@@ -17,26 +18,37 @@ pub enum DicewarePasswordGenError {
     SeedRng,
     #[error("Failed to initialize a secure string")]
     SecureStringInit,
+    #[error("Failed to downcast number")]
+    Downcast,
 }
 
 pub fn diceware_password(
     list: &Vec<String>,
     length: u32,
 ) -> Result<SecureString, Report<DicewarePasswordGenError>> {
-    let mut rng = StdRng::try_from_os_rng().change_context(DicewarePasswordGenError::SeedRng)?;
+    let list_len = Zeroizing::new(
+        u64::try_from(list.len()).change_context(DicewarePasswordGenError::Downcast)?,
+    );
 
     let mut password =
         SecureString::new().change_context(DicewarePasswordGenError::SecureStringInit)?;
 
-    for _ in 0..length - 1 {
-        let word = list.choose(&mut rng).ok_or(DicewarePasswordGenError::Get)?;
+    for i in 0..length {
+        let index = Zeroizing::new(
+            (OsRng
+                .try_next_u64()
+                .change_context(DicewarePasswordGenError::SeedRng)?
+                % *list_len) as usize,
+        );
+
+        let word = list.get(*index).ok_or(DicewarePasswordGenError::Get)?;
 
         password.push_str(word);
-        password.push_str(" ");
-    }
 
-    let word = list.choose(&mut rng).ok_or(DicewarePasswordGenError::Get)?;
-    password.push_str(word);
+        if i != length - 1 {
+            password.push_str(" ");
+        }
+    }
 
     Ok(password)
 }
