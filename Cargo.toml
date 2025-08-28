@@ -6,6 +6,7 @@ edition = "2024"
 authors = ["Adam McKellar <dev@mckellar.eu>"]
 license = "MPL-2.0"
 repository = "https://github.com/WyvernIXTL/wuerfel-rs"
+homepage = "https://github.com/WyvernIXTL/wuerfel-rs"
 keywords = ["diceware", "password", "password-generator", "passphrase", "word-list"]
 categories = ["command-line-utilities", "security", "authentication"]
 
