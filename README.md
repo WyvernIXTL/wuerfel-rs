@@ -86,3 +86,10 @@ and at least 80 bits of entropy for authentication purposes.
 
 More is better!
 
+
+## Security
+
+* The wordlists stem from EFF and are unaltered. They are parsed at compile time and embedded into the program.
+* The random number generator is seeded by the os.
+* The generated password is stored in a locked memory location on windows and unix and encrypted in memory on windows.
+* The wordlists are cleared after use.
