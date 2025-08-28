@@ -18,4 +18,8 @@ install-updater = true
 # A GitHub repo to push Homebrew formulas to
 tap = "WyvernIXTL/homebrew-tap"
 # Publish jobs to run in CI
-publish-jobs = ["homebrew"]
+publish-jobs = ["homebrew", "npm"]
+
+npm-scope = "@wyvernixtl-rs"
+
+github-attestations = true

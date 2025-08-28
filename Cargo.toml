@@ -37,7 +37,6 @@ license-fetcher = { version = "0.8.4", features = ["build"] }
 miniz_oxide = "0.8.9"
 regex-lite = "0.1.7"
 
-# The profile that 'dist' will build with
 [profile.dist]
 inherits = "release"
 lto = "thin"
