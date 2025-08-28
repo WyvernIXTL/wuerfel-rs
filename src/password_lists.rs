@@ -5,7 +5,9 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 use bincode::Decode;
-#[derive(Debug, Clone, Decode)]
+use zeroize::{Zeroize, ZeroizeOnDrop};
+
+#[derive(Debug, Clone, Decode, Zeroize, ZeroizeOnDrop)]
 pub struct PasswordLists {
     pub long: Vec<String>,
     pub short: Vec<String>,

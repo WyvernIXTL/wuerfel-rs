@@ -24,8 +24,9 @@ error-stack = "0.5.0"
 license-fetcher = "0.8.4"
 miniz_oxide = "0.8.9"
 rand = "0.9.2"
+secure-types = "0.1.31"
 thiserror = "2.0.16"
-zeroize = "1.8.1"
+zeroize = { version = "1.8.1", features = ["derive"] }
 
 [build-dependencies]
 bincode = "2.0.1"

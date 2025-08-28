@@ -6,8 +6,8 @@
 
 use error_stack::{Report, ResultExt};
 use rand::{SeedableRng, rngs::StdRng, seq::IndexedRandom};
+use secure_types::SecureString;
 use thiserror::Error;
-use zeroize::Zeroize;
 
 #[derive(Debug, Clone, Error)]
 pub enum DicewarePasswordGenError {
@@ -15,27 +15,30 @@ pub enum DicewarePasswordGenError {
     Get,
     #[error("Failed to seed rng generator from os rng")]
     SeedRng,
+    #[error("Failed to initialize a secure string")]
+    SecureStringInit,
 }
 
 pub fn diceware_password(
     list: &Vec<String>,
     length: u32,
-) -> Result<String, Report<DicewarePasswordGenError>> {
+) -> Result<SecureString, Report<DicewarePasswordGenError>> {
     let mut rng = StdRng::try_from_os_rng().change_context(DicewarePasswordGenError::SeedRng)?;
 
-    let mut password = String::new();
+    let mut password =
+        SecureString::new().change_context(DicewarePasswordGenError::SecureStringInit)?;
 
-    for _ in 0..length {
+    for _ in 0..length - 1 {
         let word = list.choose(&mut rng).ok_or(DicewarePasswordGenError::Get)?;
 
         password.push_str(word);
-        password.push(' ');
+        password.push_str(" ");
     }
 
-    let result = password.trim_end().to_owned();
-    password.zeroize();
+    let word = list.choose(&mut rng).ok_or(DicewarePasswordGenError::Get)?;
+    password.push_str(word);
 
-    Ok(result)
+    Ok(password)
 }
 
 #[cfg(test)]

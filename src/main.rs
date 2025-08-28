@@ -9,7 +9,6 @@ use colored::Colorize;
 use error_stack::{Report, ResultExt};
 use license_fetcher::read_package_list_from_out_dir;
 use thiserror::Error;
-use zeroize::Zeroize;
 
 use crate::{
     cli::{Arguments, List},
@@ -60,9 +59,9 @@ fn main() -> Result<(), Report<MainError>> {
     .change_context(MainError::DecodeLists)?;
 
     let password_list = match cli.list {
-        List::Short => password_lists.short,
-        List::Long => password_lists.long,
-        List::Memorable => password_lists.memorable,
+        List::Short => &password_lists.short,
+        List::Long => &password_lists.long,
+        List::Memorable => &password_lists.memorable,
     };
 
     let password_list_len = u32::try_from(password_list.len())
@@ -73,8 +72,8 @@ fn main() -> Result<(), Report<MainError>> {
         .count
         .unwrap_or_else(|| count_from_entropy(password_list_len, cli.entropy.unwrap_or(90)));
 
-    let mut generated_password =
-        diceware_password(&password_list, word_count).change_context(MainError::Dice)?;
+    let generated_password =
+        diceware_password(password_list, word_count).change_context(MainError::Dice)?;
 
     let entropy = calculate_entropy(password_list_len, word_count)
         .change_context(MainError::EntropyCalculation)?;
@@ -90,12 +89,10 @@ fn main() -> Result<(), Report<MainError>> {
     eprintln!("entropy: {}", entropy_bits_string_colored);
 
     if cli.copy_clipboard {
-        copy_to_clipboard_and_delete(&generated_password).change_context(MainError::Clipboard)?;
+        copy_to_clipboard_and_delete(generated_password).change_context(MainError::Clipboard)?;
     } else {
-        println!("{}", generated_password);
+        generated_password.str_scope(|s| println!("{}", s));
     }
-
-    generated_password.zeroize();
 
     Ok(())
 }
