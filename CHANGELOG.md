@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.7](https://github.com/WyvernIXTL/wuerfel-rs/compare/v0.1.6...v0.1.7) - 2025-08-28
+
+### Added
+
+- secured password and zeroized password list
+
+### Other
+
+- add updated note regarding security
+- removed security section from readme
+- word list storage and key generation
+- fixed wrong sentences and typos
+- add installation instructions for scoop
+
 ## [0.1.6](https://github.com/WyvernIXTL/wuerfel-rs/compare/v0.1.5...v0.1.6) - 2025-08-27
 
 ### Other
