@@ -26,22 +26,18 @@ pub fn diceware_password(
     list: &Vec<String>,
     length: u32,
 ) -> Result<SecureString, Report<DicewarePasswordGenError>> {
-    let list_len = Zeroizing::new(
-        u64::try_from(list.len()).change_context(DicewarePasswordGenError::Downcast)?,
-    );
+    let list_len = u64::try_from(list.len()).change_context(DicewarePasswordGenError::Downcast)?;
 
     let mut password =
         SecureString::new().change_context(DicewarePasswordGenError::SecureStringInit)?;
 
     for i in 0..length {
-        let index = Zeroizing::new(
-            (OsRng
-                .try_next_u64()
-                .change_context(DicewarePasswordGenError::SeedRng)?
-                % *list_len) as usize,
-        );
+        let index = (OsRng
+            .try_next_u64()
+            .change_context(DicewarePasswordGenError::SeedRng)?
+            % list_len) as usize;
 
-        let word = list.get(*index).ok_or(DicewarePasswordGenError::Get)?;
+        let word = list.get(index).ok_or(DicewarePasswordGenError::Get)?;
 
         password.push_str(word);
 
