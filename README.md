@@ -22,9 +22,26 @@ scoop bucket add stupid-bucket https://github.com/WyvernIXTL/stupid-bucket
 scoop install stupid-bucket/wuerfel
 ```
 
+### [Homebrew](https://brew.sh/) (MacOS/Linux)
+
+```sh
+brew install WyvernIXTL/tap/wuerfel
+```
+
 ### Prebuilts (Windows/Linux/MacOS)
 
-See the [release page](https://github.com/WyvernIXTL/wuerfel-rs/releases).
+* Installer (Windows)
+* Install Scripts (Windows/Linux/MacOS)
+* Portable Releases
+
+are available on the [**release page**](https://github.com/WyvernIXTL/wuerfel-rs/releases).
+
+
+### [Binstall](https://github.com/cargo-bins/cargo-binstall) (Windows/Linux/MacOS)
+
+```sh
+cargo binstall -y wuerfel
+```
 
 ### From Source
 
