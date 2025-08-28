@@ -1484,7 +1484,7 @@ dependencies = [
 
 [[package]]
 name = "wuerfel"
-version = "0.1.10"
+version = "0.1.11"
 dependencies = [
  "bincode",
  "clap",
