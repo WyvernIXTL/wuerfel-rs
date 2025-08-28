@@ -86,9 +86,3 @@ and at least 80 bits of entropy for authentication purposes.
 
 More is better!
 
-## Security
-
-* The password lists where unaltered taken from the [eff webpage](https://www.eff.org/dice) and are parsed at build time.
-* The ["operating-system’s random data source"](https://docs.rs/rand/latest/rand/rngs/struct.OsRng.html) is used for all random data.
-* Passwords and the random numbers they derive from are zeroized (but with no guarantees). 
-
