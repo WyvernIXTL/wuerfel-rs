@@ -22,11 +22,24 @@ scoop bucket add stupid-bucket https://github.com/WyvernIXTL/stupid-bucket
 scoop install stupid-bucket/wuerfel
 ```
 
+
 ### [Homebrew](https://brew.sh/) (MacOS/Linux)
 
 ```sh
 brew install WyvernIXTL/tap/wuerfel
 ```
+
+
+### [NPM](https://nodejs.org/en) (Windows/Linux/MacOS)
+
+> [!NOTE]
+> An install script is used that removes temporary directories.
+> Thus this method is not compatible with restrictive environments (pnpm/deno).
+
+```sh
+npm install -g @wyvernixtl-rs/wuerfel
+```
+
 
 ### Prebuilts (Windows/Linux/MacOS)
 
@@ -43,6 +56,7 @@ are available on the [**release page**](https://github.com/WyvernIXTL/wuerfel-rs
 cargo binstall -y wuerfel
 ```
 
+
 ### From Source
 
 Via [Cargo](https://www.rust-lang.org/tools/install):
@@ -50,6 +64,7 @@ Via [Cargo](https://www.rust-lang.org/tools/install):
 ```sh
 cargo install wuerfel
 ```
+
 
 ## Usage
 
