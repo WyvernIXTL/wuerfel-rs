@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.9](https://github.com/WyvernIXTL/wuerfel-rs/compare/v0.1.8...v0.1.9) - 2025-08-28
+
+### Other
+
+- add npm and homebrew releases
+- add homepage (same as repo url)
+
 ## [0.1.8](https://github.com/WyvernIXTL/wuerfel-rs/compare/v0.1.7...v0.1.8) - 2025-08-28
 
 ### Added
