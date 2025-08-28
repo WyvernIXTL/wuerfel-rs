@@ -4,15 +4,10 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-use std::collections::HashMap;
-
-use bincode::{Decode, Encode};
-
-pub type PasswordList = HashMap<u32, String>;
-
-#[derive(Debug, Clone, Encode, Decode)]
+use bincode::Decode;
+#[derive(Debug, Clone, Decode)]
 pub struct PasswordLists {
-    pub long: PasswordList,
-    pub short: PasswordList,
-    pub short_remember: PasswordList,
+    pub long: Vec<String>,
+    pub short: Vec<String>,
+    pub memorable: Vec<String>,
 }

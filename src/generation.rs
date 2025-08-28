@@ -5,33 +5,29 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 use error_stack::{Report, ResultExt};
+use rand::{SeedableRng, rngs::StdRng, seq::IndexedRandom};
 use thiserror::Error;
 use zeroize::Zeroize;
 
-use crate::{password_lists::PasswordList, random::dice};
-
 #[derive(Debug, Clone, Error)]
 pub enum DicewarePasswordGenError {
-    #[error("Failed to generate a random number")]
-    Dice,
     #[error("Failed to get random number from list")]
     Get,
+    #[error("Failed to seed rng generator from os rng")]
+    SeedRng,
 }
 
 pub fn diceware_password(
-    list: &PasswordList,
-    digit_count: u32,
+    list: &Vec<String>,
     length: u32,
 ) -> Result<String, Report<DicewarePasswordGenError>> {
+    let mut rng = StdRng::try_from_os_rng().change_context(DicewarePasswordGenError::SeedRng)?;
+
     let mut password = String::new();
 
     for _ in 0..length {
-        let mut random_number = dice(digit_count).change_context(DicewarePasswordGenError::Dice)?;
-        let word = list
-            .get(&random_number)
-            .ok_or(DicewarePasswordGenError::Get)
-            .attach_printable_lazy(|| format!("random number: {}", random_number))?;
-        random_number.zeroize();
+        let word = list.choose(&mut rng).ok_or(DicewarePasswordGenError::Get)?;
+
         password.push_str(word);
         password.push(' ');
     }
@@ -48,18 +44,9 @@ mod test {
 
     #[test]
     fn test_dice_ware_password() {
-        let list: PasswordList = vec![
-            (1, "a".to_owned()),
-            (2, "b".to_owned()),
-            (3, "c".to_owned()),
-            (4, "d".to_owned()),
-            (5, "e".to_owned()),
-            (6, "f".to_owned()),
-        ]
-        .into_iter()
-        .collect();
+        let list = vec!["a".to_string(), "b".to_string()];
 
-        let password = diceware_password(&list, 1, 4).unwrap();
+        let password = diceware_password(&list, 4).unwrap();
 
         assert_eq!(password.len(), 4 + 3);
     }

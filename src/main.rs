@@ -25,7 +25,6 @@ mod decode;
 mod entropy;
 mod generation;
 mod password_lists;
-mod random;
 
 fn print_licenses() {
     let package_list = read_package_list_from_out_dir!().unwrap();
@@ -42,6 +41,8 @@ enum MainError {
     EntropyCalculation,
     #[error("Failed to copy")]
     Clipboard,
+    #[error("Failed downcast of number")]
+    Downcast,
 }
 
 fn main() -> Result<(), Report<MainError>> {
@@ -61,24 +62,22 @@ fn main() -> Result<(), Report<MainError>> {
     let password_list = match cli.list {
         List::Short => password_lists.short,
         List::Long => password_lists.long,
-        List::Memorable => password_lists.short_remember,
+        List::Memorable => password_lists.memorable,
     };
 
-    let digit_count: u32 = match cli.list {
-        List::Short => 4,
-        List::Long => 5,
-        List::Memorable => 4,
-    };
+    let password_list_len = u32::try_from(password_list.len())
+        .change_context(MainError::Downcast)
+        .attach_printable("password_list_len")?;
 
     let word_count = cli
         .count
-        .unwrap_or_else(|| count_from_entropy(digit_count, cli.entropy.unwrap_or(90)));
+        .unwrap_or_else(|| count_from_entropy(password_list_len, cli.entropy.unwrap_or(90)));
 
-    let mut generated_password = diceware_password(&password_list, digit_count, word_count)
-        .change_context(MainError::Dice)?;
+    let mut generated_password =
+        diceware_password(&password_list, word_count).change_context(MainError::Dice)?;
 
-    let entropy =
-        calculate_entropy(digit_count, word_count).change_context(MainError::EntropyCalculation)?;
+    let entropy = calculate_entropy(password_list_len, word_count)
+        .change_context(MainError::EntropyCalculation)?;
 
     eprintln!("word count: {}", word_count);
 

@@ -17,6 +17,7 @@
         "Prebuilts",
         "rngs",
         "rustup",
+        "Seedable",
         "Swatinem",
         "thiserror",
         "Wordlist",

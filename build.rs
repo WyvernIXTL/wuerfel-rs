@@ -4,7 +4,6 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-use std::collections::HashMap;
 use std::env::var_os;
 use std::fs::{read_to_string, write};
 use std::sync::LazyLock;
@@ -14,16 +13,13 @@ use license_fetcher::build::config::{Config, ConfigBuilder};
 use license_fetcher::build::package_list_with_licenses;
 use license_fetcher::{PackageList, package};
 
-use bincode::{Decode, Encode};
+use bincode::Encode;
 use regex_lite::{Regex, RegexBuilder};
-
-type PasswordList = HashMap<u32, String>;
-
-#[derive(Debug, Clone, Encode, Decode)]
+#[derive(Debug, Clone, Encode)]
 struct PasswordLists {
-    pub long: PasswordList,
-    pub short: PasswordList,
-    pub short_remember: PasswordList,
+    pub long: Vec<String>,
+    pub short: Vec<String>,
+    pub memorable: Vec<String>,
 }
 
 fn package_licenses() {
@@ -50,24 +46,21 @@ fn package_licenses() {
         .expect("Failed to write package list.");
 }
 
-fn parse_password_list(list: String) -> PasswordList {
+fn parse_password_list(list: String) -> Vec<String> {
     static WORDLIST_REGEX: LazyLock<Regex> = LazyLock::new(|| {
-        RegexBuilder::new(r"(?m)^(?<number>[1-6]{4,5})\s?(?<word>[\w\-]*)$")
+        RegexBuilder::new(r"(?m)^[1-6]{4,5}\s?(?<word>[\w\-]*)$")
             .crlf(true)
             .build()
             .expect("Failed to parse regex")
     });
 
-    let mut parsed_list: PasswordList = HashMap::new();
+    let mut parsed_list = vec![];
 
-    for (_, [number, word]) in WORDLIST_REGEX
+    for (_, [word]) in WORDLIST_REGEX
         .captures_iter(&list)
         .map(|capture| capture.extract())
     {
-        let number_parsed =
-            u32::from_str_radix(number, 10).expect("Failed to parse number of Wordlist");
-
-        parsed_list.insert(number_parsed, word.into());
+        parsed_list.push(word.into());
     }
 
     parsed_list
@@ -92,7 +85,7 @@ fn package_password_lists() {
             read_to_string("./password-lists/eff_short_passwordlist.txt")
                 .expect("Failed to read password list file"),
         ),
-        short_remember: parse_password_list(
+        memorable: parse_password_list(
             read_to_string("./password-lists/eff_short_passwordlist_remember.txt")
                 .expect("Failed to read password list file"),
         ),
