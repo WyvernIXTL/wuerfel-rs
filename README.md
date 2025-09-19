@@ -26,7 +26,7 @@ scoop install stupid-bucket/wuerfel
 ### [Homebrew](https://brew.sh/) (MacOS/Linux)
 
 ```sh
-brew install WyvernIXTL/tap/wuerfel
+brew install wyvernixtl/tap2/wuerfel
 ```
 
 
