@@ -1,7 +1,7 @@
 [package]
 name = "wuerfel"
 description = "Diceware password generator cli based on eff password lists."
-version = "0.1.11"
+version = "0.1.12"
 edition = "2024"
 authors = ["Adam McKellar <dev@mckellar.eu>"]
 license = "MPL-2.0"
