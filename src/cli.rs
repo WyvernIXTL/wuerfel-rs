@@ -4,7 +4,10 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-use clap::{Parser, ValueEnum};
+use std::io;
+
+use clap::{CommandFactory, Parser, ValueEnum};
+use clap_complete::{Shell, generate};
 
 #[derive(Copy, Debug, Clone, PartialEq, Eq, PartialOrd, Ord, ValueEnum)]
 pub enum List {
@@ -16,7 +19,7 @@ pub enum List {
     ///
     /// Every word has ~ 10 bits of entropy.
     Short,
-    /// Short rememberable word list
+    /// Short memorable word list
     ///
     /// Every word has ~ 10 bits of entropy.
     ///
@@ -35,7 +38,7 @@ pub enum List {
 /// to stretch the password used. This allows for less secure passwords, guaranteeing
 /// a secure encryption.
 #[derive(Debug, Clone, Parser)]
-#[command(version, about)]
+#[command(version, about, author)]
 pub struct Arguments {
     /// Length of generated password in words
     #[arg(short, long, value_parser = clap::value_parser!(u32).range(1..65535), group = "strength")]
@@ -43,12 +46,32 @@ pub struct Arguments {
     /// Target entropy of password in bits
     #[arg(short, long, value_parser = clap::value_parser!(u32).range(1..), group = "strength")]
     pub entropy: Option<u32>,
-    /// List to use
+    /// Wordlist to use
     #[arg(short, long, value_enum, default_value_t = List::Short)]
     pub list: List,
     /// Copy password to clipboard instead of printing it
     #[arg(long = "cb")]
     pub copy_clipboard: bool,
-    #[arg(long)]
+    /// Print shell completions for a shell
+    #[arg(long, value_enum, exclusive = true, value_name = "SHELL")]
+    pub generate_shell_completion: Option<Shell>,
+    /// List supported shells for shell completion generation
+    #[arg(long, exclusive = true)]
+    pub list_supported_shells_for_shell_completion: bool,
+    /// Output licensing information to console
+    #[arg(long, exclusive = true)]
     pub license: bool,
+}
+
+pub fn print_shell_completion_supported_shells() {
+    for shell in Shell::value_variants() {
+        println!("{shell}");
+    }
+}
+
+pub fn print_shell_completion(shell: Shell) {
+    let mut cmd = Arguments::command();
+    let bin_name = cmd.get_name().to_string();
+    eprintln!("Generating completion file for {shell:?}...");
+    generate(shell, &mut cmd, bin_name, &mut io::stdout());
 }

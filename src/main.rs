@@ -11,7 +11,7 @@ use license_fetcher::read_package_list_from_out_dir;
 use thiserror::Error;
 
 use crate::{
-    cli::{Arguments, List},
+    cli::{Arguments, List, print_shell_completion, print_shell_completion_supported_shells},
     clipboard::copy_to_clipboard_and_delete,
     decode::decode_password_lists,
     entropy::{calculate_entropy, count_from_entropy},
@@ -55,6 +55,16 @@ fn main() -> Result<(), Report<MainError>> {
 
     if cli.license {
         print_licenses();
+        return Ok(());
+    }
+
+    if let Some(shell) = cli.generate_shell_completion {
+        print_shell_completion(shell);
+        return Ok(());
+    }
+
+    if cli.list_supported_shells_for_shell_completion {
+        print_shell_completion_supported_shells();
         return Ok(());
     }
 
