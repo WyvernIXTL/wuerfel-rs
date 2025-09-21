@@ -25,6 +25,9 @@ scoop install stupid-bucket/wuerfel
 
 ### [Homebrew](https://brew.sh/) (MacOS/Linux)
 
+> [!TIP]
+> Shell completions are included! See the [Homebrew Documentation](https://docs.brew.sh/Shell-Completion) on how to activate them.
+
 ```sh
 brew install wyvernixtl/tap2/wuerfel
 ```
@@ -43,9 +46,7 @@ npm install -g @wyvernixtl-rs/wuerfel
 
 ### Prebuilts (Windows/Linux/MacOS)
 
-* Installer (Windows)
-* Install Scripts (Windows/Linux/MacOS)
-* Portable Releases
+[![Download for Windows](https://img.shields.io/badge/Download-Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white) ![Download for macOS](https://img.shields.io/badge/Download-macOS-000000?style=for-the-badge&logo=apple&logoColor=white) ![Download for Linux](https://img.shields.io/badge/Download-Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)](https://github.com/WyvernIXTL/wuerfel-rs/releases/latest)
 
 are available on the [**release page**](https://github.com/WyvernIXTL/wuerfel-rs/releases).
 
