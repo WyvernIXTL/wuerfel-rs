@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.13](https://github.com/WyvernIXTL/wuerfel-rs/compare/v0.1.12...v0.1.13) - 2025-09-21
+
+### Other
+
+- added tip regarding shell completion support of homebrew and made the download button nicer
+
 ## [0.1.12](https://github.com/WyvernIXTL/wuerfel-rs/compare/v0.1.11...v0.1.12) - 2025-09-20
 
 ### Added
