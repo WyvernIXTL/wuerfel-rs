@@ -41,3 +41,6 @@ regex-lite = "0.1.7"
 [profile.dist]
 inherits = "release"
 lto = "thin"
+
+[badges]
+maintenance = { status = "deprecated" }

@@ -1,3 +1,6 @@
+> [!WARNING] 
+> This project is deprecated and will not be developed any further. The reason for this is, that [KeePassXC](https://keepassxc.org/) finally supports the generation of diceware passwords with custom password lists.
+
 <div align="center">
 
 # `wuerfel`
